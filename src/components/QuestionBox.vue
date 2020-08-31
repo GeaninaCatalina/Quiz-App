@@ -9,19 +9,15 @@
           v-for="(answer, index) in suffleAnswers"
           :key="index"
           @click="selectAnswer(index)"
-          :class="[selectedIndex === index ? 'selected-answer': '']"
-        >
-        {{answer}}
-        </b-list-group-item>
+          :class="answerClass(index)"
+        >{{answer}}</b-list-group-item>
       </b-list-group>
 
-      <b-button 
+      <b-button
         variant="primary"
         @click="onSubmit"
         :disabled="selectedIndex === null || answered"
-      >
-        Submit
-      </b-button>
+      >Submit</b-button>
       <b-button v-on:click="onClicNext" variant="success" href="#">Next</b-button>
     </b-jumbotron>
   </div>
@@ -33,7 +29,7 @@ import _ from "lodash";
 export default {
   props: {
     currentQuestion: Object,
-    onClicNext: Function, 
+    onClicNext: Function,
     increment: Function
   },
   data() {
@@ -67,12 +63,12 @@ export default {
       console.log(index);
     },
 
-    onSubmit(){
-      let isCorrect = false; 
-      if (this.selectedIndex === this.correctIndex){
-        isCorrect = true; 
+    onSubmit() {
+      let isCorrect = false;
+      if (this.selectedIndex === this.correctIndex) {
+        isCorrect = true;
       }
-      this.answered = true; 
+      this.answered = true;
       this.increment(isCorrect);
     },
     suffleAnswersList() {
@@ -81,7 +77,23 @@ export default {
         this.currentQuestion.correct_answer
       ];
       this.suffleAnswers = _.shuffle(answers);
-      this.correctIndex = this.suffleAnswers.indexOf(this.currentQuestion.correct_answer);
+      this.correctIndex = this.suffleAnswers.indexOf(
+        this.currentQuestion.correct_answer
+      );
+    },
+    answerClass(index) {
+      let answerClass = ''; 
+
+       if (!this.answered && this.selectedIndex === index) {
+         answerClass = "selected-answer"
+       } else if (this.answered && this.correctIndex === index) {
+         answerClass = "correct-answer"
+       } else if (this.answered && this.selectedIndex === index && this.selectedIndex === index) {
+         answerClass ="incorrect-answer"
+       } else {
+         answerClass = ""; 
+       }
+      return answerClass; 
     }
   }
 };
