@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Header />
+    <Header 
+      :nrCorrect="nrCorrect"
+      :nrTotal="nrTotal"
+    />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm='6' offset='3'>
@@ -8,6 +11,7 @@
             v-if="questions.length"
             :currentQuestion='questions[index]'
             :onClicNext = 'onClicNext'
+            :increment = 'increment'
           />
         </b-col>
       </b-row>
@@ -28,12 +32,21 @@ export default {
   data() {
     return {
       questions: [],
-      index: 0
+      index: 0,
+      nrCorrect: 0,
+      nrTotal: 0 
     }
   },
   methods: {
     onClicNext() {
       this.index++
+    }, 
+
+    increment(isCorrect) {
+      if (isCorrect) {
+        this.nrCorrect++;
+      }
+      this.nrTotal++;
     }
   },
   mounted: function() {
