@@ -8,6 +8,8 @@
         <b-list-group-item 
         v-for="(answer, index) in showAnswers" 
         :key="index"
+        @click="selectAnswer(index)"
+        :class="[selectedIndex === index ? 'selected-answer': '']"
         >
           {{answer}}
         </b-list-group-item>
@@ -25,11 +27,31 @@ export default {
     currentQuestion: Object,
     onClicNext: Function
   },
+  data(){
+    return {
+      selectedIndex: null
+    }
+  },
   computed: {
     showAnswers() {
       let answers = [...this.currentQuestion.incorrect_answers];
       answers.push(this.currentQuestion.correct_answer);
       return answers;
+    }
+  }, 
+  watch: {
+    currentQuestion(){
+      this.selectAnswer = null;
+      this.suffleAnswers();
+    }
+  },
+  methods:{
+    selectAnswer(index) {
+      this.selectedIndex = index; 
+      console.log(index);
+    },
+    suffleAnswers(){
+      let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer];
     }
   }
 };
@@ -45,5 +67,17 @@ export default {
 }
 .btn {
   margin: 0px 5px;
+}
+
+.selected-answer{
+background-color:lightblue;
+}
+
+.correct-answer{
+background-color: darkseagreen;
+}
+
+.incorrect-answer{
+background-color: firebrick;
 }
 </style>
