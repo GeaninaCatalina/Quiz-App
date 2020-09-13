@@ -10,14 +10,18 @@
           :key="index"
           @click="selectAnswer(index)"
           :class="answerClass(index)"
-        >{{answer}}</b-list-group-item>
+        >
+        {{answer}}
+        </b-list-group-item>
       </b-list-group>
 
       <b-button
         variant="primary"
         @click="onSubmit"
         :disabled="selectedIndex === null || answered"
-      >Submit</b-button>
+      >
+      Submit
+      </b-button>
       <b-button v-on:click="onClicNext" variant="success" href="#">Next</b-button>
     </b-jumbotron>
   </div>
@@ -85,11 +89,11 @@ export default {
       let answerClass = ''; 
 
        if (!this.answered && this.selectedIndex === index) {
-         answerClass = "selected-answer"
+         answerClass = "selected-answer";
        } else if (this.answered && this.correctIndex === index) {
-         answerClass = "correct-answer"
+         answerClass = "correct-answer";
        } else if (this.answered && this.selectedIndex === index && this.selectedIndex === index) {
-         answerClass ="incorrect-answer"
+         answerClass ="incorrect-answer";
        } else {
          answerClass = ""; 
        }

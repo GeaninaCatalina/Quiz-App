@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     onClicNext() {
-      this.index++
+      this.index++;
     }, 
 
     increment(isCorrect) {
@@ -54,10 +54,10 @@ export default {
       method: 'get'
     })
     .then((response) => {
-      return response.json()
+      return response.json();
     })
     .then((jsonData) => {
-      this.questions = jsonData.results
+      this.questions = jsonData.results;
     })
   }
 };
